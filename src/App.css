@@ -1,0 +1,10 @@
+.centered-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  width: 70vw;
+
+}
+
