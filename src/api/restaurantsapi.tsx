@@ -1,6 +1,8 @@
 import axios from "axios";
-import type { AxiosRequestConfig, AxiosResponse} from "axios";
-export const getRestaurantApiPostcode= async (postcode: string, configs?: AxiosRequestConfig<any>) => {
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
+import type { Restaurant, AllRestaurants } from "../types/types";
+
+export const getRestaurantApiPostcode = async (postcode: string, configs?: AxiosRequestConfig<any>) => {
     let res: AxiosResponse<AllRestaurants>;
     res = await axiosIns({
         method: 'get',
@@ -10,10 +12,10 @@ export const getRestaurantApiPostcode= async (postcode: string, configs?: AxiosR
 
     const Results: AllRestaurants = res.data;
 
-    const AddressResults = Results.restaurants.splice(0,10).map(item => ({
+    const AddressResults = Results.restaurants.splice(0, 10).map(item => ({
         name: item.name,
         cuisines: item.cuisines,
-        rating: Number(item.rating.starRating),
+        rating: item.rating,
         address: item.address
     }));
 
@@ -25,16 +27,7 @@ const axiosIns = axios.create({
 });
 
 
-interface RestaurantData {
-    name: string,
-    cuisines: { name: string }[];
-    rating: { starRating: number };
-    address: string[],
-};
 
-interface AllRestaurants {
-    restaurants: RestaurantData[];
 
-}
 
 export default getRestaurantApiPostcode

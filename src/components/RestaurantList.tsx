@@ -2,33 +2,16 @@ import JustEatLogo from '../assets/Just-Eat-Logo.png'
 import '../App.css'
 import { useState, useEffect } from 'react';
 import { getRestaurantApiPostcode } from '../api/restaurantsapi';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
-interface Address {
-    firstLine: string;
-    city: string;
-    postalCode: string;
-}
+import type { RestaurantProps } from "../types/types";
 
 
-interface Restaurant {
-    name: string,
-    cuisines: { name: string }[];
-    rating: string,
-    address: Address,
-};
+const RestaurantList = ({ Restaurants}: RestaurantProps) => {
 
-interface RestaurantProps {
-    Restaurants: Restaurant[];
-}
+    // Debug
+    ///useEffect(() => {
+    ///    console.log("res",Restaurants)
+    ///}, [Restaurants]);
 
-const RestaurantList = ({ Restaurants }: RestaurantProps) => {
-
-    useEffect(() => {
-        console.log("res",Restaurants)
-    }, [Restaurants]);
 
 
     return (
@@ -38,23 +21,27 @@ const RestaurantList = ({ Restaurants }: RestaurantProps) => {
                 <img src={JustEatLogo} className="framework" alt="React logo" width="250px" />
                 <h1> Restaurant List</h1>
 
+               <div className="cards">
                 {Restaurants.map((restaurant, index) => (
                     <div className="restaurant-block" key={index}>
                         <h4 className="restaurant-title-text">{restaurant.name}</h4>
-                        <h5 className="restaurant-title-text">Cuisines
-                        {restaurant.cuisines.map((cuisine,key) => (
-                            <div className="desc" key={key}>{cuisine.name} </div>
+                        <h5 className="text-header">Cuisines </h5>
+                         <ul>
+                        {restaurant.cuisines.map((cuisine) => (
+                            <li key={cuisine.name}>
+                            <div className="card-text">{cuisine.name} </div>
+                            </li>
                         ))}
-                        </h5>
-                        <h5 className="desc">Rating {restaurant.rating}</h5>
-                        <div className="desc">Address
-                        <div className="desc">{restaurant.address.firstLine} </div>
-                        <div className="desc">{restaurant.address.city} </div>
-                        <div className="desc">{restaurant.address.postalCode} </div>
-                        </div>
+                         </ul> 
+                        <span className="card-text">Rating {restaurant.rating.starRating} </span>
+                        <div className="text-header">Address </div>
+                        <div className="card-text">{restaurant.address.firstLine} </div>
+                        <div className="card-text">{restaurant.address.city} </div>
+                        <div className="card-text">{restaurant.address.postalCode} </div>
                     </div>
 
                 ))}
+            </div>
             </div>
 
         </>

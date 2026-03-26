@@ -3,18 +3,14 @@ import '../App.css'
 import { useState, useEffect } from 'react';
 import { getRestaurantApiPostcode } from '../api/restaurantsapi';
 import RestaurantList from './RestaurantList';
+import type { Restaurant } from "../types/types";
 
 
 function RestaurantSearch() {
 
-    interface Restaurant {
-        name: string;
-        cuisines: { name: string }[];
-        rating: string;
-        address: string[];
-    }
 
     const [showSearch, setShowSearch] = useState(true);
+    const [showResults, setShowResults] = useState(true);
     const [postcode, setPostcode] = useState("");
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 

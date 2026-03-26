@@ -13,7 +13,7 @@ body {
   align-items: center;
   margin: 0 auto;
   border: 1px solid #000000;
-  width: 70vw;
+  width: 80vw;
 
 }
 
@@ -49,12 +49,74 @@ body {
 }
 
 
+.restaurant-block {
+  min-height: 21vh;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 20vw;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+
+
+
+
 .desc {
   margin: 5px;
   color: #8c8c89;
 }
 
-.restaurant-title-text{
-    color: #FFFFFF;
-    margin: 10px;
+.restaurant-title-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
 }
+
+.text-header {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #777;
+  text-transform: uppercase;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.card-text {
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.restaurant-block:hover  {
+    transform: scale(1.08) rotate(0deg) translate(0px, 0px) skewX(0deg);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    filter: brightness(1.1);
+    background-color: #FF8000;
+    color: #FFFFFF;
+}
+.cards {
+  display: flex;
+  flex-direction: row; 
+  gap: 16px;          
+  flex-wrap: wrap;   
+}
+
+ ul {
+  display: table;
+  list-style-type: disc;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 40px;
+  text-align: left;
+}
+li {
+    list-style-type: disc;
+    color: #000000;
+
+
+}
+
