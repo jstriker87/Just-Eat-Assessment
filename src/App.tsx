@@ -1,16 +1,12 @@
-import { useState } from 'react'
-import JustEatLogo from './assets/Just-Eat-Logo.png'
-import './App.css'
+
+import RestaurantSearch from './components/RestaurantSearch';
+
 
 function App() {
-
   return (
-    <>
-        <div className="centered-div">
-          <img src={JustEatLogo} className="framework" alt="React logo" width="250px"/>
-        </div>
-    </>
+    <div>
+      <RestaurantSearch /> 
+    </div>
   )
 }
-
 export default App

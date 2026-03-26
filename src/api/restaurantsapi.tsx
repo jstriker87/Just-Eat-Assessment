@@ -4,27 +4,35 @@ export const getRestaurantApiPostcode= async (postcode: string, configs?: AxiosR
     let res: AxiosResponse<AllRestaurants>;
     res = await axiosIns({
         method: 'get',
-        url: `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
+        url: `/api/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
         ...configs
     })
 
-    return res.data
+    const Results: AllRestaurants = res.data;
+
+    const AddressResults = Results.restaurants.splice(0,10).map(item => ({
+        name: item.name,
+        cuisines: item.cuisines,
+        rating: Number(item.rating.starRating),
+        address: item.address
+    }));
+
+    return AddressResults
 }
 const axiosIns = axios.create({
     withCredentials: false,
     headers: { "Content-Type": "application/json" },
 });
 
-type RestaurantData  = {
 
+interface RestaurantData {
     name: string,
     cuisines: { name: string }[];
-    rating: {starRating: number };
-    address: any;
+    rating: { starRating: number };
+    address: string[],
+};
 
-}
-
-type AllRestaurants = {
+interface AllRestaurants {
     restaurants: RestaurantData[];
 
 }
