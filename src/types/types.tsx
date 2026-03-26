@@ -7,9 +7,9 @@ interface Address {
 }
 
 interface rating {
-  count: number,
-  starRating: number,
-  userRating: number
+    count: number,
+    starRating: number,
+    userRating: number
 }
 
 export interface Restaurant {
@@ -21,6 +21,8 @@ export interface Restaurant {
 
 export interface RestaurantProps {
     Restaurants: Restaurant[];
+    setShowSearch: React.Dispatch<React.SetStateAction<boolean>>; 
+    showSearch: boolean; 
 }
 
 

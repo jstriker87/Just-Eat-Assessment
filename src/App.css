@@ -21,6 +21,7 @@ body {
 .submit-button {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
+  height: 4vh;
   width: 6vw;
   border: 1px solid;
   background-color: #0094ff;
@@ -34,9 +35,35 @@ body {
 
 
 .input-text {
-    text-align: center;
 
 }
+
+.input-text {
+  text-align: center;
+  max-width: 190px;
+  background-color: #f5f5f5;
+  color: #242424;
+  min-height: 40px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  line-height: 1.15;
+  box-shadow: 0px 10px 20px -18px;
+  margin: 20px;
+}
+
+input-text:focus {
+  border-bottom: 2px solid #5b5fc7;
+  border-radius: 4px 4px 2px 2px;
+}
+
+input-text:hover {
+  outline: 1px solid lightgrey;
+}
+
+
+
+
 
  
 .restaurant-block{
@@ -116,7 +143,32 @@ body {
 li {
     list-style-type: disc;
     color: #000000;
-
-
 }
+
+.invalid-postcode-message {
+    margin: 0 auto;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #000000;
+    background-color: #ebb5bd;
+    width: 10vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+
+.no-restaurants-message {
+    margin: 0 auto;
+    text-align: center;
+    margin: 0 auto;
+    border: 1px solid #000000;
+    background-color: #ccdaf5;
+    width: 10vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+
 
