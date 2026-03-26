@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { getRestaurantApiPostcode } from '../api/restaurantsapi';
 import type { RestaurantProps } from "../types/types";
 import { RiArrowGoBackFill } from "react-icons/ri";
-
+import { FaLocationDot } from "react-icons/fa6";
 const RestaurantList = ({ Restaurants, setShowSearch, showSearch }: RestaurantProps) => {
 
+
+    const [cardIndex, setCardIndex] = useState<number | undefined>(undefined);
     const [hovered, setHovered] = useState(false)
     // Debug
     ///useEffect(() => {
@@ -25,7 +27,6 @@ const RestaurantList = ({ Restaurants, setShowSearch, showSearch }: RestaurantPr
                 <h1> Restaurant List</h1>
 
                 <RiArrowGoBackFill size={30}
-
                     onPointerOver={() => setHovered(true)}
                     onPointerOut={() => setHovered(false)}
                     onClick={() => {
@@ -37,21 +38,35 @@ const RestaurantList = ({ Restaurants, setShowSearch, showSearch }: RestaurantPr
                 {Restaurants.length > 0 ? (
                     <div className="cards">
                         {Restaurants.map((restaurant, index) => (
-                            <div className="restaurant-block" key={index}>
-                                <h4 className="restaurant-title-text">{restaurant.name}</h4>
-                                <h5 className="text-header">Cuisines </h5>
-                                <ul>
+                            <div className="restaurant-block" key={index}
+
+                                onPointerOver={() => {
+                                    setCardIndex(index)
+                                    setHovered(true)
+
+                                }}
+                                onPointerOut={() => setHovered(false)}
+
+                            >
+
+                                <h4 className={hovered && index == cardIndex ? "restaurant-title-text-hovered" : "restaurant-title-text-standard"}> {restaurant.name} </h4>
+                                <h5 className={hovered && index == cardIndex ? "text-header-hovered" : "text-header-standard"}> Cuisines</h5>
+                                <ul className="ul-card">
                                     {restaurant.cuisines.map((cuisine) => (
-                                        <li key={cuisine.name}>
-                                            <div className="card-text">{cuisine.name} </div>
+
+                                        <li className={hovered && index == cardIndex ? "li-card-hovered" : "li-card-standard"} key={cuisine.name}>
+                                            <div className={hovered && index == cardIndex ? "card-text-hovered" : "card-text-standard"}> {cuisine.name} </div>
                                         </li>
                                     ))}
                                 </ul>
-                                <span className="card-text">Rating {restaurant.rating.starRating} </span>
-                                <div className="text-header">Address </div>
-                                <div className="card-text">{restaurant.address.firstLine} </div>
-                                <div className="card-text">{restaurant.address.city} </div>
-                                <div className="card-text">{restaurant.address.postalCode} </div>
+
+                                <span className={hovered && index == cardIndex ? "card-text-hovered" : "card-text-standard"}> {'\u2b50'} Rating {restaurant.rating.starRating} </span>
+                                <div className={hovered && index == cardIndex ? "text-header-hovered" : "text-header-standard"}> <FaLocationDot /> Address </div>
+                                <div className={hovered && index == cardIndex ? "card-text-hovered" : "card-text-standard"}> {restaurant.address.firstLine}
+                                < br />
+                                {restaurant.address.city}
+                                < br />
+                                {restaurant.address.postalCode} </div>
                             </div>
 
                         ))}

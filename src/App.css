@@ -95,14 +95,30 @@ input-text:hover {
   color: #8c8c89;
 }
 
-.restaurant-title-text {
+.restaurant-title-text-standard {
   font-size: 1.3rem;
   font-weight: 600;
   color: #222;
   margin-bottom: 12px;
 }
 
-.text-header {
+.restaurant-title-text-hovered {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+}
+
+.text-header-hovered {
+  font-size: 1rem;
+  font-weight: 900;
+  color: #FFFFFFF;
+  text-transform: uppercase;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.text-header-standard {
   font-size: 1rem;
   font-weight: 900;
   color: #777;
@@ -111,9 +127,14 @@ input-text:hover {
   margin-bottom: 6px;
 }
 
-.card-text {
+.card-text-standard{
   font-size: 0.95rem;
   color: #444;
+}
+
+.card-text-hovered{
+  font-size: 0.95rem;
+  color: #FFFFFF;
 }
 
 .restaurant-block:hover  {
@@ -131,7 +152,7 @@ input-text:hover {
   flex-wrap: wrap;   
 }
 
- ul {
+ .ul-card {
   display: table;
   list-style-type: disc;
   margin: 0 auto;
@@ -140,10 +161,17 @@ input-text:hover {
   padding-left: 40px;
   text-align: left;
 }
-li {
-    list-style-type: disc;
+.li-card-standard {
+    list-style-type: '\1F372';
     color: #000000;
 }
+
+.li-card-hovered {
+    list-style-type: '\1F372';
+    color: #FFFFFF;
+}
+
+
 
 .invalid-postcode-message {
     margin: 0 auto;

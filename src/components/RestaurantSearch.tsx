@@ -8,18 +8,26 @@ import type { Restaurant } from "../types/types";
 
 function RestaurantSearch() {
 
-
+/**
+ * Set useStates for variables used during the pages lifecylc
+ * Represents a book.
+ * @var showSearch: If this search page should be visible
+ * @var postcode: The postcode that the user enters into the input box
+ * @var restaurants: The list of restaurants of type 'Restaurant' returned after searching using a postcode
+ * @var showInvalidPostcodeMessage: If the invalid postcode message should be visibile
+ */
     const [showSearch, setShowSearch] = useState<boolean>(true);
-    const [postcode, setPostcode] = useState("");
+    const [postcode, setPostcode] = useState<string>("");
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    const [showInvalidPostcodeMessage, setShowInvalidPostcodeMessage] = useState(false);
+    const [showInvalidPostcodeMessage, setShowInvalidPostcodeMessage] = useState<boolean>(false);
 
-
-    // Debug
-    //useEffect(() => {
-    //    console.log("showSearch",showSearch)
-    //}, [showSearch]);
-
+/**
+ * The search restaurants function
+ * Validates if the user has entered a valid UK postcode, or that the postcode is not empty 
+ * If either of the above is not true then display an invalid postcode error message for 1.2 seconds 
+ * Otherwise remove any spaces in the postcode and make a request to the api wrapper 'getRestaurantApiPostcode' with the postcode
+ * Then set return value from this requests to the restaurants useState value and set the postcode to an empty string
+ */
 
     async function searchRestaurants() {
         try {
@@ -45,7 +53,6 @@ function RestaurantSearch() {
 
     return (
         <>
-
 
             {showSearch ? (
                 <>

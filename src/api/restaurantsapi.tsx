@@ -12,7 +12,7 @@ export const getRestaurantApiPostcode = async (postcode: string, configs?: Axios
 
     const Results: AllRestaurants = res.data;
 
-    const AddressResults = Results.restaurants.splice(0, 10).map(item => ({
+    const AddressResults = Results.restaurants.splice(0, 40).map(item => ({
         name: item.name,
         cuisines: item.cuisines,
         rating: item.rating,
