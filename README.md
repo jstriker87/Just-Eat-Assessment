@@ -23,8 +23,8 @@
 ## Assumptions
 - When reviewing the results of the Cuisines for each restaurant there was a cuisine called 'collects stamps'. I left this result in as the specification did not request its removal but it could be easily filtered out in the 'dataManager' component
 - The postcode information held by the API are valid, but I should manage any errors appropriately regardless
+- The API will be available but I should manage any errors appropriately regardless
 - It is possible that less than 10 restaurants could be returned by the API, or no restaurants could be returned at all
-
 
 ## Research & Starting approach
 
@@ -34,15 +34,6 @@
         - The address is an object that contains the fields 'firstLine', 'city' & 'postalCode' fields
         - The rating is an object and the value that I need from the object is 'starRating'
         - Cuisines is an array of objects, and each object contains the fields 'name' & 'uniqueName'. I decided that I would only need 'name'
-
- - I decided that I would make a React program using Vite, and I would use Typescript to ensure that objects, variables and data are handled and managed correctly
- - I starting by making a minimum viable product (MVP) by creating a new Vite project and making two pages
-    - 'RestaurantSearch.tsx' - A search page a centered container covering 80% of the screens width. Inside this container there is an input box and a search button contained in a form
-    - I crated one useState {restaurants,setRestaurants)  to store the results of the api call
-    - The second page 'RestaurantsApi.tsx' contains an API wrapper. This makes a call to the Just Eat API using a proxy that is set-up in the Vite configuration to avoid issues with cross origin (Cors) requests
-        - The wrapper takes the postcode passed in a performs the search and returns the results which in turn is returned back to my 'RestaurantSearch' page. I then printed the results to the console
-
-    - This MVP was a proof of concept that my API wrapper worked and I built the program from this
 
 # Tech Stack
 
@@ -89,32 +80,32 @@ types/
 
 ### Layered Architecture
 
- - Api Layer (/api)
+ - Api Layer `(/api)`
     - Manages all requests to an from the Just Eat Restaurants API. This layer provides separation of HTTP requests which are  made using the Axios library
 
-- Hook layer {/hooks)
+- Hook layer `{/hooks)`
     - Provides encapsulation of the logic to fetch data and manage the lifecycle of the data. It acts as an intermediary between the API and UI and it handles:
         - Asynchronous requests
         - Error management
         - Storage of data
 
-- Components layer (/components)
+- Components layer `(/components)`
     - Handles the UI of the search and restaurants list page
     - Data is passed to and from the components of this layer using props
     - Error handling is 'passed up' using the principles of 'throwing' errors up so they can all be managed within the same component
     - There is no business logic in the components of this layer, so it ensures uncoupling of the overall design and ensures that the code is easy to read and scalable
 
-- Types layer (/types)
+- Types layer `(/types)`
     - Provides a central resource location for all types & interfaces used in the program. It provides a clear structure for data that is used between the different layers of the application
 
 
 ## Data Flow
 
--A user submits a postcode via the search component
--The hook makes a request to the API layer
--The API layer retrieves raw data from Just Eat's API
--The response is filtered and mapped to a simplified response
--The useState hook updates state
+- A user submits a postcode via the search component
+- The hook makes a request to the API layer
+- The API layer retrieves raw data from Just Eat's API
+- The response is filtered and mapped to a simplified response
+- The useState hook updates state
 - The Components in the Components layer re-render the page with the new data
 
 This flow ensures that external data is transformed before reaching the UI, and this ensures that the components are simple and that any future changes can be handled easily
@@ -136,7 +127,7 @@ This flow ensures that external data is transformed before reaching the UI, and 
 - The 'dataManager' component manages any errors that are received from other components. These are formatted as a string and passed up to the 'RestaurantSearch" page using a prop 'SetError' 
 - The 'RestaurantSearch' page contains a sub-component that displays the error message only if the useState value 'displayError' is not empty
     - This message is displayed for 2 seconds to the user using a timeout function 
-
+- A user submits a postcode via the search component -The hook makes a request to the API layer -The API layer retrieves raw data from Just Eat's API
 # Testing 
 
 - TBC
@@ -175,4 +166,5 @@ This flow ensures that external data is transformed before reaching the UI, and 
 
 # Dependencies / Acknowledgements
 
-- TBC
+This project uses [**read-icons**](https://www.npmjs.com/package/react-icons) A library of icons for use in React projects
+> react-icons is licensed under the MIT License.
