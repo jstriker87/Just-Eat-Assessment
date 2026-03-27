@@ -23,32 +23,42 @@ export const getData = ({ postcode, setRestaurants, setShowSearch, setError, set
             // A Regex provided from Gov.uk website for validating podcodes
             const postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
             // If the postcode is invalid or the postcode is empty then set 'setShowInvalidPostcodeMessage' to true for 1.2 seconds to an error message is displayed to the user
-            if (!postcodeRegex.test(postcode) || postcode.length == 0) {
+            if (!checkPostcode(postcode)) {
                 setShowInvalidPostcodeMessage(true)
                 setTimeout(() => {
                     setShowInvalidPostcodeMessage(false)
                 }, 1200);
                 return
-            // If the postcode is valid then make a request to the api wrapper's function 'getRestaurantApiPostcode' with the entered postcode
-            // Then set 'setRestaurants' to the result of the api call and set 'setShowSearch' to false so the user no longer sees the search page
+                // If the postcode is valid then make a request to the api wrapper's function 'getRestaurantApiPostcode' with the entered postcode
+                // Then set 'setRestaurants' to the result of the api call and set 'setShowSearch' to false so the user no longer sees the search page
             } else {
                 const result = await getRestaurantApiPostcode(postcode);
+
                 setRestaurants(result)
                 setShowSearch(false)
             }
 
         }
 
-    // As the 'searchRestaurants' needs an async / await call I call it from outside of the function and also handle any errors
-    searchRestaurants().catch((error) => {
-        setError(String(error));
-        console.error('Error:', error);
-    });
+        // As the 'searchRestaurants' needs an async / await call I call it from outside of the function and also handle any errors
+        searchRestaurants().catch((error) => {
+            setError(String(error));
+            console.error('Error:', error);
+        });
     } catch (error) {
         setError(String(error))
         console.error('Error:', error);
         return
     }
 };
+
+
+export function checkPostcode(postcode: string) {
+    postcode = postcode.trim()
+    // A Regex provided from Gov.uk website for validating podcodes
+    const postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
+    // If the postcode is invalid or the postcode is empty then set 'setShowInvalidPostcodeMessage' to true for 1.2 seconds to an error message is displayed to the user
+    return postcode.length > 0 && postcodeRegex.test(postcode)
+}
 
 export default getData

@@ -12,25 +12,41 @@ import type { AllRestaurants } from "../types/types";
 
  */
 
-export const getRestaurantApiPostcode = async (postcode: string, configs?: AxiosRequestConfig<any>) => {
-    let res: AxiosResponse<AllRestaurants>;
-    res = await axiosIns({
-        method: 'get',
-        url: `/api/discovery/uk/restaurants/enriched/bypostcode/${postcode}`,
-        ...configs
-    })
+export const getRestaurantApiPostcode = async (postcode: string, apiPath?: string, configs?: AxiosRequestConfig<any>) => {
 
-    const Results: AllRestaurants = res.data;
+    try {
 
-    const RestaurantResults = Results.restaurants.splice(0, 40).map(item => ({
-        name: item.name,
-        cuisines: item.cuisines,
-        rating: item.rating,
-        address: item.address
-    }));
+        let res: AxiosResponse<AllRestaurants>;
 
-    return RestaurantResults
+        let api = null
+        if (apiPath) {
+            api = apiPath + postcode
+        } else {
+            api = `/api/discovery/uk/restaurants/enriched/bypostcode/${postcode}`;
+        }
+        res = await axiosIns({
+            method: 'get',
+            url: api,
+            ...configs
+        })
+
+        const Results: AllRestaurants = res.data;
+
+        const RestaurantResults = Results.restaurants.splice(0, 40).map(item => ({
+            name: item.name,
+            cuisines: item.cuisines,
+            rating: item.rating,
+            address: item.address
+        }));
+        return RestaurantResults
+
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; 
+    }
 }
+
+
 const axiosIns = axios.create({
     withCredentials: false,
     headers: { "Content-Type": "application/json" },

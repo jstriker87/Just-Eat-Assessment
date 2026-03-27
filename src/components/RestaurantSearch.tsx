@@ -3,7 +3,7 @@ import '../App.css'
 import { useState, useEffect } from 'react';
 import RestaurantList from './RestaurantList';
 import type { Restaurant } from "../types/types";
-import { getData } from '../hooks/dataManaager';
+import { getData } from '../hooks/dataManager';
 
 
 
