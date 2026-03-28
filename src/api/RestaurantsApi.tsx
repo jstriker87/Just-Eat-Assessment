@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AxiosError } from "axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import type { AllRestaurants } from "../types/types";
 

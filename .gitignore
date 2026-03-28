@@ -28,8 +28,8 @@ chrome-user-data
 /tmp
 /.worktrees
 .claude/*.local.*
-
-packages/react-devtools-core/dist
+dist/
+packages/
 packages/react-devtools-extensions/chrome/build
 packages/react-devtools-extensions/chrome/*.crx
 packages/react-devtools-extensions/chrome/*.pem

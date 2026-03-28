@@ -6,8 +6,6 @@ import type { Restaurant } from "../types/types";
 import { getData } from '../hooks/dataManager';
 
 
-
-
 /**
  * RestaurantSearch: Allows users to enter a postcode and search for restaurants in Just Eat 
  */
@@ -58,9 +56,9 @@ function RestaurantSearch() {
             });
             setPostcode("")
 
-        } catch (error) {
+        } catch (error : any) {
             setError(String(error))
-            console.error('Error:', error.code + ' ' + error.statusText);
+            console.error(error.toString())
             return
         }
     }
@@ -72,7 +70,7 @@ function RestaurantSearch() {
             {displayError ? (
                 <>
                     <div className="centered-div">
-                        <span className='invalid-postcode-message'>{error}</span>
+                        <span className='invalid-postcode-message'>{displayError}</span>
                     </div>
                 </>
             ) : null}

@@ -1,6 +1,6 @@
 
 // Imports the 'DataManagerProps' which contains the types / interfaces
-import type { DataManagerProps } from "../types/types";
+import type { DataManagerProps, Restaurant } from "../types/types";
 // Import the 'getRestaurantApiPostcode' api wrapper
 import { getRestaurantApiPostcode } from '../api/RestaurantsApi';
 
@@ -19,9 +19,6 @@ import { getRestaurantApiPostcode } from '../api/RestaurantsApi';
 export const getData = ({ postcode, setRestaurants, setShowSearch, setError, setShowInvalidPostcodeMessage }: DataManagerProps) => {
     try {
         async function searchRestaurants() {
-
-            // A Regex provided from Gov.uk website for validating podcodes
-            const postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
             // If the postcode is invalid or the postcode is empty then set 'setShowInvalidPostcodeMessage' to true for 1.2 seconds to an error message is displayed to the user
             if (!checkPostcode(postcode)) {
                 setShowInvalidPostcodeMessage(true)
@@ -34,7 +31,7 @@ export const getData = ({ postcode, setRestaurants, setShowSearch, setError, set
             } else {
                 const result = await getRestaurantApiPostcode(postcode);
 
-                setRestaurants(result)
+                setRestaurants(result as Restaurant[])
                 setShowSearch(false)
             }
 
@@ -51,10 +48,9 @@ export const getData = ({ postcode, setRestaurants, setShowSearch, setError, set
     }
 };
 
-
 export function checkPostcode(postcode: string) {
     postcode = postcode.trim()
-    // A Regex provided from Gov.uk website for validating podcodes
+    // A Regex provided from Gov.uk website for validating postcodes
     const postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$/;
     // If the postcode is invalid or the postcode is empty then set 'setShowInvalidPostcodeMessage' to true for 1.2 seconds to an error message is displayed to the user
     return postcode.length > 0 && postcodeRegex.test(postcode)

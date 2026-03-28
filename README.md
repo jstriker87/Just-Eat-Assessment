@@ -1,5 +1,4 @@
-# Just Eat Take Home Assignment
-## James Cumming-Bart
+# Just Eat Take Home Assignment - James Cumming-Bart
 
 # Project Overview & Assumptions
 
@@ -46,15 +45,32 @@
 
 # Running the application
 
+- The application can be run locally using the production files by using npm run preview, or using the provided Dockerfile. The instructions for both options are below
+
+## Using npm preview with production files
+- This application uses a Vite development server
+- A proxy is configured in the `vite.config.ts` file to forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development
 
 - Install Dependencies
 `npm install` 
 
-- Run the development server
-`npm run dev`
+- Build application
+`npm run build`
 
-- This application used a Vite development server
-    - A proxy is configured in the `vite.config.ts` file to forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development
+- Run the preview server
+`npm run preview`
+
+- The application will now be available on http://localhost:4000
+
+## Using Docker
+- Included in this repository a Dockerfile which will build and run the program and Nginx server
+- Also included in this repository is a `nginx.conf`file. This provides the configuration to set up a proxy and forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development.
+
+- Build application
+`docker build -t just-eat-restaurants .`
+- Run Application
+`docker run -p 4000:80 -v ./nginx.conf:/etc/nginx/nginx.conf:ro just-eat-restaurants`
+- The application will now be available on http://localhost:4000
 
 # Project Structure
 - api/RestaurantApi.tsx
@@ -178,7 +194,7 @@ This flow ensures that external data is transformed before reaching the UI, and 
 
 # Limitations
 ## Data Inconsistencies
-- When reviewing the address fields from restaurants there is some inconsistencies in the data, such as that the 'firstLine' field sometimes includes the city information
+- When reviewing the address fields from restaurants there is some inconsistencies in the data, such as that the 'firstLine' field sometimes includes the city information.
 - An example of this using my own postcode is this restaurant
     - 137 High Street, Watford, Hertfordshire
     - Watford
@@ -189,23 +205,22 @@ This flow ensures that external data is transformed before reaching the UI, and 
     - Create an address validation process in the 'dataManager' component to clean the address
     - Clean the data issues at the source of the data and add validation in the pipeline where a restaurant is added to Just Eats Database
 
-## CORS backend proxy
+## Loading phase & improved error handling
 
-- I did not implement a backend proxy to handle CORS when the application is run in production, in order to keep the scope of my application aligned with the assessment. Instead I used a Vite proxy when the application is run in developement
+- I would like to have added a loading phase to show the loading of data between when the search button is pressed and the data is displayed. This would provide the user a visual clue in case of a slow response from the API.
+
+- The error handling on my 'RestaurantSearch' page sets the type of an error to 'any'. In a production application I would not set the type to 'any' and I would implement a more advanced error handler.  
 
 # improvements
 
-- Implement a backend proxy to proxy API requests
 - Cache data from last recently held results using sessionStorage in browser
 - Improve postcode handling to allow user to enter a postcode without spaces 
 - Implement an address cleaning & parsing function to manage duplication of some parts of address in some restaurants records
-
 
 # AI Usage
 
 - AI was used only for the purposes of providing guidance and support, and the high level structure of the application
 - The code was written by myself and if any debugging of issues using AI was required, each request specifically asked that no code be provided
-
 
 # Dependencies / Acknowledgements
 

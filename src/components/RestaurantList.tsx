@@ -70,7 +70,7 @@ const RestaurantList = ({ Restaurants, setShowSearch }: RestaurantProps) => {
                                         </li>
                                     ))}
                                 </ul>
-                                <span className={hovered && index == cardIndex ? "card-text-hovered" : "card-text-standard"}> {'\u2b50'} Rating {restaurant.rating.starRating} </span>
+                                <span className={hovered && index == cardIndex ? "card-text-hovered" : "card-text-standard"}> {'\u2b50'} {restaurant.rating.starRating} </span>
                                 <div className={hovered && index == cardIndex ? "text-header-hovered" : "text-header-standard"}> <FaLocationDot /> Address </div>
                                 <div className={hovered && index == cardIndex ? "card-text-hovered" : "card-text-standard"}> {restaurant.address.firstLine}
                                     < br />
