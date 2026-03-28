@@ -41,7 +41,7 @@
 - Language: TypeScript
 - Build tool: Vite
 - HTTP request client: Axios
-- Testing: TBC
+- Testing: vitetest
 
 
 # Running the program
@@ -63,7 +63,6 @@
     - DataManager.tsx
     - Handles management of the lifecycle of restaurant data. Validates postcode before it makes request to the API wrapper and handles responses
         - Handles any errors and passes them back to the main 'RestaurantSearch' page to provide a streamlined process
-        - 
 types/
     - typeManager.tsx
         - Manages types & interfaces used in the components of this program
@@ -113,10 +112,10 @@ This flow ensures that external data is transformed before reaching the UI, and 
 ## Data Modelling
 
 - The API response contains a large amount of data for each restaurant. In order to provide a simplified data model containing the fields below, I carried out a mapping function in the 'dataManager' component
-    -Name
-    -Cuisines
-    -Rating (as a number)
-    -Address
+    - Name
+    - Cuisines
+    - Rating (as a number)
+    - Address
 
 - The result of the mapping data matches the 'Restaurant' type of my types component and ensure that data is clean and structured in the same way for every request
 

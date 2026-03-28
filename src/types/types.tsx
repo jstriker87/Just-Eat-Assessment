@@ -19,7 +19,7 @@ interface rating {
 export interface Restaurant {
     name: string,
     cuisines: { name: string }[];
-    rating: rating;
+    rating: rating,
     address: Address,
 };
 

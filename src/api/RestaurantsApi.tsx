@@ -30,7 +30,9 @@ export const getRestaurantApiPostcode = async (postcode: string, apiPath?: strin
             ...configs
         })
 
-        const Results: AllRestaurants = res.data;
+
+        const Results = data || res.data;
+        //const Results: AllRestaurants = res.data;
 
         const RestaurantResults = Results.restaurants.splice(0, 40).map(item => ({
             name: item.name,
@@ -45,6 +47,8 @@ export const getRestaurantApiPostcode = async (postcode: string, apiPath?: strin
         throw error; 
     }
 }
+
+
 
 
 const axiosIns = axios.create({
