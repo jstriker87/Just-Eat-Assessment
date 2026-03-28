@@ -39,15 +39,14 @@ export const getData = ({ postcode, setRestaurants, setShowSearch, setError, set
             }
 
         }
-
         // As the 'searchRestaurants' needs an async / await call I call it from outside of the function and also handle any errors
         searchRestaurants().catch((error) => {
             setError(String(error));
-            console.error('Error:', error);
+            console.error(String(error));
         });
     } catch (error) {
         setError(String(error))
-        console.error('Error:', error);
+        console.error(String(error));
         return
     }
 };

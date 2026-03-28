@@ -1,6 +1,5 @@
-import { test } from 'vitest'
+import { describe, test } from 'vitest'
 import { getRestaurantApiPostcode } from '../src/api/RestaurantsApi';
-import axios from "axios";
 
 
 test('Expect call using API wrapper to invalid API endpoint to throw an error', async ({ expect }) => {
@@ -8,3 +7,5 @@ test('Expect call using API wrapper to invalid API endpoint to throw an error', 
     await expect(apiCall).rejects.toThrow()
 
 })
+
+

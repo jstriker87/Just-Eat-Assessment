@@ -44,10 +44,17 @@
 - Testing: vitetest
 
 
-# Running the program
+# Running the application
 
-- TBC
 
+- Install Dependencies
+`npm install` 
+
+- Run the development server
+`npm run dev`
+
+- This application used a Vite development server
+    - A proxy is configured in the `vite.config.ts` file to forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development
 
 # Project Structure
 - api/RestaurantApi.tsx
@@ -65,7 +72,7 @@
         - Handles any errors and passes them back to the main 'RestaurantSearch' page to provide a streamlined process
 types/
     - typeManager.tsx
-        - Manages types & interfaces used in the components of this program
+        - Manages types & interfaces used in the components of this application
             - As uses TypeScript I wanted to ensure that components know what data is being expected for them to handle
             - Each interface defines properties such as the names of the fields of data and their types
 
@@ -74,7 +81,7 @@ types/
 
 ## Separation of Concerns
  
-- I designed the structure of this program with clear and understandable separation of the key components to ensure that the program is easily maintainable and can be scaled easily
+- I designed the structure of this application with clear and understandable separation of the key components to ensure that the application is easily maintainable and can be scaled easily
 - I used TypeScript to make sure that there is strong typing across the application. This also ensures type safety which reduces the risk of errors. The component props and data models are also typed to provide clear data structures between the different parts of the system.
 
 ### Layered Architecture
@@ -95,7 +102,7 @@ types/
     - There is no business logic in the components of this layer, so it ensures uncoupling of the overall design and ensures that the code is easy to read and scalable
 
 - Types layer `(/types)`
-    - Provides a central resource location for all types & interfaces used in the program. It provides a clear structure for data that is used between the different layers of the application
+    - Provides a central resource location for all types & interfaces used in the application. It provides a clear structure for data that is used between the different layers of the application
 
 
 ## Data Flow
@@ -129,8 +136,45 @@ This flow ensures that external data is transformed before reaching the UI, and 
 - A user submits a postcode via the search component -The hook makes a request to the API layer -The API layer retrieves raw data from Just Eat's API
 # Testing 
 
-- TBC
+- Testing was carried out using Vitest, which is a testing framework that is recommended for use in TypeScript applicationss
+- The tests focused on validation the main logic of the application
 
+## Postcode Validation
+
+- Validating the postcode is very important in this application, as any validation issues should be caught and managed rather than an invalid request being sent to the Just Eat API endpoint
+- It also ensures that users receive feedback quickly on any invalid inputs
+
+- Tests were carried to test for behaviour and also edge cases. These include: 
+    - Empty postcode input
+    - Postcodes that are only whitespace
+    - Invalid postcode formats
+    - Valid UK postcode formats
+    - Variations in upper and lowercase
+
+- These tests ensure that the validation of the postcode is clear and concise and provides consistent outcomes
+
+## API Wrapper
+
+- To test the API module I used a library called `axios mock adapter`. This provided a more refined and easier process to creating mock Axios API calls than using the built in services from Vitest.
+- The API wrapper retrieves restaurant data and it was tested in two ways:
+
+1. Error Handling
+
+- A test was implemented that used an invalid endpoint to confirm that the wrapper raised an error when the request fails
+
+2. Mocked API response 
+
+- Axios was mocked in order to simulate responses from Just Eat's API endpoint. The allowed me to test the behaviour of the API wrapper without needing an internet connection and access to the Just Eat API endpoint
+
+- I carried out two tests:
+    - A mock request with provided and expected data, which used the API wrapper, to test that response of data was correct 
+    - A mock request with no provided data, and  no expected data, which used the API wrapper, to test that response of data was correct and situations where data was returned did not cause any silent errors
+
+## Approach to testing
+
+- My approach to testing was to check and validate the main core logic of my application, primarily the data being passed between the modules using React props
+- This included input validation as well as testing the communication being sent and received by the API wrapper
+- As the scope of this project was clear, I focused on the testing of core logic. However in a production environment, I would add further tests that included integration testing and also testing of each component of the application
 
 # Limitations
 ## Data Inconsistencies
@@ -147,7 +191,7 @@ This flow ensures that external data is transformed before reaching the UI, and 
 
 ## CORS backend proxy
 
-- I did not implement a backend proxy to handle CORS when the program is run in production, in order to keep the scope of my program aligned with the assessment. Instead I used a Vite proxy when the program is run in developement
+- I did not implement a backend proxy to handle CORS when the application is run in production, in order to keep the scope of my application aligned with the assessment. Instead I used a Vite proxy when the application is run in developement
 
 # improvements
 
@@ -159,7 +203,7 @@ This flow ensures that external data is transformed before reaching the UI, and 
 
 # AI Usage
 
-- AI was used only for the purposes of providing guidance and support, and the high level structure of the program
+- AI was used only for the purposes of providing guidance and support, and the high level structure of the application
 - The code was written by myself and if any debugging of issues using AI was required, each request specifically asked that no code be provided
 
 
@@ -167,3 +211,6 @@ This flow ensures that external data is transformed before reaching the UI, and 
 
 This project uses [**read-icons**](https://www.npmjs.com/package/react-icons) A library of icons for use in React projects
 > react-icons is licensed under the MIT License.
+
+This project uses [**axios-mock-adapter**](https://www.npmjs.com/package/axios-mock-adapter) from [@ctimmerm](https://github.com/ctimmerm)  Axios adapter that allows to easily mock requests 
+> axios-mock-adapter is licensed under the MIT License.

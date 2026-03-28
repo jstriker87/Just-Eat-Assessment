@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AxiosError } from "axios";
 import type { AxiosRequestConfig, AxiosResponse } from "axios";
 import type { AllRestaurants } from "../types/types";
 
@@ -31,27 +32,37 @@ export const getRestaurantApiPostcode = async (postcode: string, apiPath?: strin
         })
 
 
-        const Results = data || res.data;
-        //const Results: AllRestaurants = res.data;
+        const Results: AllRestaurants = res.data;
 
-        const RestaurantResults = Results.restaurants.splice(0, 40).map(item => ({
-            name: item.name,
-            cuisines: item.cuisines,
-            rating: item.rating,
-            address: item.address
-        }));
-        return RestaurantResults
+        if (Results.restaurants && Results.restaurants.length > 0) {
+            const RestaurantResults = Results.restaurants.splice(0, 40).map(item => ({
+                name: item.name,
+                cuisines: item.cuisines,
+                rating: item.rating,
+                address: item.address
+            }));
+            return RestaurantResults
+        } else {
+
+            return [];
+
+        }
 
     } catch (error) {
-        console.error('Error:', error);
-        throw error; 
+        if (axios.isAxiosError(error)) {
+            console.error(error.toString())
+            throw error.toString();
+        } else {
+            console.error(error);
+        }
+
     }
 }
 
 
 
 
-const axiosIns = axios.create({
+export const axiosIns = axios.create({
     withCredentials: false,
     headers: { "Content-Type": "application/json" },
 });

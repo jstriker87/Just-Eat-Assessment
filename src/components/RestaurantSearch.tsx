@@ -60,7 +60,7 @@ function RestaurantSearch() {
 
         } catch (error) {
             setError(String(error))
-            console.error('Error:', error);
+            console.error('Error:', error.code + ' ' + error.statusText);
             return
         }
     }
