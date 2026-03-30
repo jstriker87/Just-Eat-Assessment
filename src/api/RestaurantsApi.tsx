@@ -35,7 +35,7 @@ export const getRestaurantApiPostcode = async (postcode: string, apiPath?: strin
 
         if (Results.restaurants && Results.restaurants.length > 0) {
             const RestaurantResults = Results.restaurants.splice(0, 40).map(item => ({
-                name: item.name,
+                name: "<p> This is a test </p>",
                 cuisines: item.cuisines,
                 rating: item.rating,
                 address: item.address
