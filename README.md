@@ -22,12 +22,13 @@
 - When reviewing the results of the Cuisines for each restaurant there was a cuisine called 'collects stamps'. I left this result in as the specification did not request its removal but it could be easily filtered out in the 'dataManager' component.
 - The postcode information held by the API are valid, but I should manage any errors appropriately regardless.
 - The API will be available but I should manage any errors appropriately regardless.
+- Postcode validation is carried out on the client side and postcodes entered would be in the standard two part format (e.g. G3 8AG)
 - It is possible that less than 10 restaurants could be returned by the API, or no restaurants could be returned at all.
 
 ## Research & Starting approach
 
 - Before beginning carried out research on the API:
-    - I made requests to the api from my browser to one of the postcodes was provided in the specification as an example postcode.
+    - I made requests to the API from my browser to one of the postcodes was provided in the specification as an example postcode.
     - I noted the structure of each restaurants results and relevant information:
         - The address is an object that contains the fields 'firstLine', 'city' & 'postalCode' fields.
         - The rating is an object and the value that I need from the object is 'starRating'.
@@ -47,7 +48,7 @@
 
 ## Using npm preview with production files
 - This application uses a Vite development server.
-- A proxy is configured in the `vite.config.ts` file to forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development.
+- A proxy is configured in the 'vite.config.ts' file to forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development.
 
 - Install Dependencies
 `npm install` 
@@ -61,7 +62,7 @@
 - The application will now be available on http://localhost:4173
 
 ## Using Docker
-- Included in this repository a Dockerfile which will build and run the program and Nginx server.
+- Included in this repository a Dockerfile which will build and run the program as well a create an Nginx server.
 - Also included in this repository is a `nginx.conf`file. This provides the configuration to set up a proxy and forward any requests to the Just Eat API. This is needed to prevent Cross Origin Resource Sharing (CORS) issues during development.
 
 - Build application
@@ -71,25 +72,25 @@
 - The application will now be available on http://localhost:4000
 
 # Project Structure
-- api/RestaurantApi.tsx
-    - Handles communication with external API.
-    - Isolates HTTP logic .
+- api/
+    - `RestaurantApi.tsx`
+        - Handles communication with external API.
+        - Isolates HTTP logic .
 - components/
-    - RestaurantSearch.tsx
+    - `RestaurantSearch.tsx`
         - Provides functionality to allow users to enter a postcode to search for restaurants.
         - Focused on UI. Business logic is managed in other components.
-    - RestaurantList
+    - `RestaurantList.tsx`
         - Provides functionality to display restaurant results in a structured, and clear format .
 - hooks/
-    - DataManager.tsx
+    - `DataManager.tsx`
     - Handles management of the lifecycle of restaurant data. Validates postcode before it makes request to the API wrapper and handles responses.
         - Handles any errors and passes them back to the main 'RestaurantSearch' page to provide a streamlined process.
 types/
-    - typeManager.tsx
+    - `typeManager.tsx`
         - Manages types & interfaces used in the components of this application.
-            - As uses TypeScript I wanted to ensure that components know what data is being expected for them to handle.
+            - As this program uses TypeScript I wanted to ensure that components know what data is being expected for them to handle.
             - Each interface defines properties such as the names of the fields of data and their types.
-
 
 # Architecture & Design
 
@@ -98,25 +99,25 @@ types/
 - I designed the structure of this application with clear and understandable separation of the key components to ensure that the application is easily maintainable and can be scaled easily.
 - I used TypeScript to make sure that there is strong typing across the application. This also ensures type safety which reduces the risk of errors. The component props and data models are also typed to provide clear data structures between the different parts of the system..
 
+
 ### Layered Architecture
 
- - Api Layer `(/api)`
-    - Manages all requests to an from the Just Eat Restaurants API. This layer provides separation of HTTP requests which are  made using the Axios library.
+ - API Layer `(/api)`
+    - Manages all requests to and from the Just Eat Restaurants API. This layer provides separation of HTTP requests which are  made using the Axios library.
 
 - Hook layer `{/hooks)`
     - Provides encapsulation of the logic to fetch data and manage the lifecycle of the data. It acts as an intermediary between the API and UI and it handles:
         - Asynchronous requests.
-        - Error management.
-        - Storage of data.
+        - Manages application state such as the restaurants data
 
 - Components layer `(/components)`
     - Handles the UI of the search and restaurants list page.
     - Data is passed to and from the components of this layer using props.
     - Error handling is 'passed up' using the principles of 'throwing' errors up so they can all be managed within the same component.
-    - There is no business logic in the components of this layer, so it ensures uncoupling of the overall design and ensures that the code is easy to read and scalable.
+    - There is no business logic in the components of this layer, so it ensures decoupling of the overall design and ensures that the code is easy to read and scalable.
 
 - Types layer `(/types)`
-    - Provides a central resource location for all types & interfaces used in the application. It provides a clear structure for data that is used between the different layers of the application.
+    - Provides a central location for all types & interfaces used in the application. It provides a clear structure for data that is used between the different layers of the application.
 
 
 ## Data Flow
@@ -143,7 +144,7 @@ This flow ensures that external data is transformed before reaching the UI, and 
 
 # Error Handling
 
-Errors are handled at the component level by propagating error messages using props components states.
+Errors are handled at the component level by propagating any error messages using react props states.
 
 When an error occurs (such as a invalid input or a failure with the API failure), it is passed up via props to the RestaurantSearch component, where it is stored in a displayError state variable.
 
@@ -211,14 +212,15 @@ This approach keeps error handling simple appropriate for an application of this
 ## Loading phase & improved error handling
 
 - I would like to have added a loading phase to show the loading of data between when the search button is pressed and the data is displayed. This would provide the user a visual clue in case of a slow response from the API..
-
 - The error handling on my 'RestaurantSearch' page sets the type of an error to 'any'. In a production application I would not set the type to 'any' and I would implement a more advanced error handler. 
 
 # improvements
+- Implement a backend to act as a proxy for requests to the API
 - Add a centralised error handling process in the `DataManager` component.
     - Errors would be categorised and the correct type of error would be structured (e.g. Axios errors would take the 'error_status' and 'error_text' fields).
 - Cache data from last recently held results using 'sessionStorage' in browser.
-- Improve postcode handling to allow user to enter a postcode without spaces .
+- Improve postcode handling to allow user to enter a postcode without spaces.
+- Add further options to improve accessibility 
 - Implement an address cleaning & parsing function to manage duplication of some parts of address in some restaurants records.
 
 # AI Usage
